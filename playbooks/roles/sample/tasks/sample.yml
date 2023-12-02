@@ -1,0 +1,5 @@
+---
+- name: Overwrite parent playbook vars
+  # noqa: ansible-lint-custom-strict-naming<var_name_prefix>
+  ansible.builtin.set_fact:
+    var__overwrite: overwritten (by <some_role>/tasks/sample.yml)

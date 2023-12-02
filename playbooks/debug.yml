@@ -1,0 +1,25 @@
+---
+- name: Overwrite Vars Play
+  hosts:
+    - localhost
+  tasks:
+    - name: Playbook 外で定義した変数の値を表示
+      ansible.builtin.debug:
+        msg: |
+          var__overwrite: {{ var__overwrite }}
+        ##########
+        # output #
+        ##########
+        # var__overwrite: original
+    - name: Include role (中で var__overwrite を変数として再代入)
+      ansible.builtin.include_role:
+        name: sample
+        tasks_from: sample.yml
+    - name: 変数の値を表示
+      ansible.builtin.debug:
+        msg: |
+          var__overwrite: {{ var__overwrite }}
+        ##########
+        # output #
+        ##########
+        # var__overwrite: overwritten (by <some_role>/tasks/sample.yml)
